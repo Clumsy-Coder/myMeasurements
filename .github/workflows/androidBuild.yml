@@ -71,12 +71,12 @@ jobs:
           restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Create properties file
         run: |
-          printf 'RELEASE_KEY_STORE=%s\n' ${{ RELEASE_KEY_STORE }} >> android/release-keystore.properties
-          printf 'RELEASE_KEY_ALIAS_NAME=%s\n' ${{ RELEASE_KEY_ALIAS_NAME }} >> android/release-keystore.properties
-          printf 'RELEASE_KEY_ALIAS_PASSWORD=%s\n' ${{ RELEASE_KEY_ALIAS_PASSWORD }} >> android/release-keystore.properties
-          printf 'RELEASE_KEY_STORE_PASSWORD=%s\n' ${{ RELEASE_KEY_STORE_PASSWORD }} >> android/release-keystore.properties
+          printf 'RELEASE_KEY_STORE=%s\n' ${{ secrets.RELEASE_KEY_STORE }} >> android/release-keystore.properties
+          printf 'RELEASE_KEY_ALIAS_NAME=%s\n' ${{ secrets.RELEASE_KEY_ALIAS_NAME }} >> android/release-keystore.properties
+          printf 'RELEASE_KEY_ALIAS_PASSWORD=%s\n' ${{ secrets.RELEASE_KEY_ALIAS_PASSWORD }} >> android/release-keystore.properties
+          printf 'RELEASE_KEY_STORE_PASSWORD=%s\n' ${{ secrets.RELEASE_KEY_STORE_PASSWORD }} >> android/release-keystore.properties
       - name: Decode Android key
-        run: echo ${{ KEYSTORE }} | base64 -d | tee keystore android/app/release.keystore > /dev/null
+        run: echo ${{ secrets.KEYSTORE }} | base64 -d | tee keystore android/app/release.keystore > /dev/null
       - name: Build Android APK
         run: yarn build:android:release
       - name: Upload Artifact

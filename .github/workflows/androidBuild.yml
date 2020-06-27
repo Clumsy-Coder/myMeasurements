@@ -76,7 +76,8 @@ jobs:
           printf 'RELEASE_KEY_ALIAS_PASSWORD=%s\n' ${{ secrets.RELEASE_KEY_ALIAS_PASSWORD }} >> android/release-keystore.properties
           printf 'RELEASE_KEY_STORE_PASSWORD=%s\n' ${{ secrets.RELEASE_KEY_STORE_PASSWORD }} >> android/release-keystore.properties
       - name: Decode Android key
-        run: echo ${{ secrets.KEYSTORE }} | base64 -d | tee keystore android/app/release.keystore > /dev/null
+        run: |
+          echo ${{ secrets.KEYSTORE }} | base64 -d | tee keystore android/app/release.keystore > /dev/null
       - name: Build Android APK
         run: yarn build:android:release
       - name: Upload Artifact

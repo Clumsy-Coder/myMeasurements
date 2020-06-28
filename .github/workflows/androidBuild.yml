@@ -81,6 +81,7 @@ jobs:
           base64 -d -i keystore-base64 > android/app/release.keystore
           ls -lah android/app
           ls -lah
+          cat android/release-keystore.properties
       - name: Build Android APK
         run: yarn build:android:release
       - name: Upload Artifact

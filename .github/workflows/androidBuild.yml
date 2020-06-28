@@ -96,8 +96,9 @@ jobs:
           cd ..
       - name: Generate .ENV file
         run: |
-          printf 'BUILD_VERSION=%s\n' $(echo ${ GITHUB_SHA } | cut -c -7) >> .env
-          echo ${ GITHUB_SHA } | cut -c -7
+          printf 'BUILD_VERSION=%s\n' $(echo ${ github.sha } | cut -c -7) >> .env
+          echo ${ github.sha } | cut -c -7
+          cat .env
       - name: Build Android APK
         run: yarn build:android:release
       - name: Upload Artifact

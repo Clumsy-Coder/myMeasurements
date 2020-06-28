@@ -94,6 +94,10 @@ jobs:
           cd android
           ./gradlew androidDependencies
           cd ..
+      - name: Generate .ENV file
+        run: |
+          printf 'BUILD_VERSION=%s\n' $(echo ${{ GITHUB_SHA }} | cut -c -7) >> .env
+          echo ${{ GITHUB_SHA }} | cut -c -7
       - name: Build Android APK
         run: yarn build:android:release
       - name: Upload Artifact

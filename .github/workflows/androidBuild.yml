@@ -77,7 +77,7 @@ jobs:
           printf 'RELEASE_KEY_STORE_PASSWORD=%s\n' ${{ secrets.RELEASE_KEY_STORE_PASSWORD }} >> android/release-keystore.properties
       - name: Decode Android key
         run: |
-          echo ${{ secrets.KEYSTORE }} > keystore-base64
+          echo "${{ secrets.KEYSTORE }}" > keystore-base64
           base64 -d -i keystore-base64 > android/app/release.keystore
           ls -lah android/app
           ls -lah

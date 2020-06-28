@@ -86,10 +86,6 @@ jobs:
           cd android
           ./gradlew androidDependencies
           cd ..
-          pwd
-          ls -lah ~
-          ls -lah ~/.gradle
-          ls -lah ~/.m2
       - name: Generate .ENV file
         run: |
           printf 'BUILD_VERSION=%s\n' $(echo ${{ github.sha }} | cut -c -7) >> .env

@@ -79,6 +79,16 @@ jobs:
         run: |
           echo "${{ secrets.KEYSTORE }}" > keystore-base64
           base64 -d -i keystore-base64 > android/app/release.keystore
+      - name: Cache Android dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-android-dependencies
+        with:
+          path: |
+            '~/.gradle'
+            '~/.m2'
+          key: jars-{{ hashFiles('android/gradle/wrapper/gradle-wrapper.properties') }}-{{ hashFiles("android/build.gradle") }}-{{ hashFiles('android/app/build.gradle') }}
+          restore-keys: jars-{{ hashFiles('android/gradle/wrapper/gradle-wrapper.properties') }}-{{ hashFiles("android/build.gradle") }}-
       - name: Build Android APK
         run: yarn build:android:release
       - name: Upload Artifact

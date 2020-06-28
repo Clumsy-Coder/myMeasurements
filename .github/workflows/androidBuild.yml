@@ -81,6 +81,12 @@ jobs:
             '~/.m2/*'
           key: jars-{{ hashFiles('android/gradle/wrapper/gradle-wrapper.properties') }}-{{ hashFiles("android/build.gradle") }}-{{ hashFiles('android/app/build.gradle') }}
           restore-keys: jars-{{ hashFiles('android/gradle/wrapper/gradle-wrapper.properties') }}-{{ hashFiles("android/build.gradle") }}-
+      - name: Check android dependencies
+        run: |
+          pwd
+          ls -lah ~
+          ls -lah ~/.gradle
+          ls -lah ~/.m2
       - name: Download Android dependencies
         run: |
           cd android

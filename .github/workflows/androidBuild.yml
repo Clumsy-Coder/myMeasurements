@@ -77,8 +77,8 @@ jobs:
           cache-name: cache-android-dependencies
         with:
           path: |
-            '~/.gradle/*'
-            '~/.m2/*'
+            ~/.gradle/
+            ~/.m2/
           key: jars-{{ hashFiles('android/gradle/wrapper/gradle-wrapper.properties') }}-{{ hashFiles("android/build.gradle") }}-{{ hashFiles('android/app/build.gradle') }}
           restore-keys: jars-{{ hashFiles('android/gradle/wrapper/gradle-wrapper.properties') }}-{{ hashFiles("android/build.gradle") }}-
       - name: Download Android dependencies

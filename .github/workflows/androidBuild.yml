@@ -14,6 +14,7 @@ jobs:
     if: "! contains(toJSON(github.event.head_commit.message), '[skip ci]')" # skip job if git message contains [skip ci]
     steps:
       - uses: actions/checkout@v2
+
       - name: Cache node modules
         uses: actions/cache@v2
         env:
@@ -22,6 +23,7 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}-
+
       - name: Install npm dependencies
         run: yarn install
 
@@ -31,6 +33,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
+
       - name: Cache node modules
         uses: actions/cache@v2
         env:
@@ -39,6 +42,7 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}-
+
       - name: Lint project
         run: yarn lint
 
@@ -48,6 +52,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
+
       - name: Cache node modules
         uses: actions/cache@v2
         env:
@@ -85,6 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Cache node modules
         uses: actions/cache@v2
         env:
@@ -93,6 +99,7 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}-
+
       - name: Create properties file
         run: |
           printf 'RELEASE_KEY_STORE=%s\n' ${{ secrets.RELEASE_KEY_STORE }} >> android/release-keystore.properties
@@ -104,6 +111,7 @@ jobs:
         run: |
           echo "${{ secrets.KEYSTORE }}" > keystore-base64
           base64 -d -i keystore-base64 > android/app/release.keystore
+
       - name: Cache Android dependencies
         uses: actions/cache@v2
         env:
@@ -114,16 +122,20 @@ jobs:
             ~/.m2/
           key: jars-{{ hashFiles('android/gradle/wrapper/gradle-wrapper.properties') }}-{{ hashFiles("android/build.gradle") }}-{{ hashFiles('android/app/build.gradle') }}
           restore-keys: jars-{{ hashFiles('android/gradle/wrapper/gradle-wrapper.properties') }}-{{ hashFiles("android/build.gradle") }}-
+
       - name: Download Android dependencies
         run: |
           cd android
           ./gradlew androidDependencies
           cd ..
+
       - name: Generate .ENV file
         run: |
           printf 'BUILD_VERSION=%s\n' $(echo ${{ github.sha }} | cut -c -7) >> .env
+
       - name: Build Android APK
         run: yarn build:android:release
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:

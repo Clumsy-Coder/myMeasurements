@@ -61,6 +61,11 @@ jobs:
       - name: Test project
         run: yarn test --maxWorkers=2 --ci --coverage
 
+      - name: Archive test results
+        uses: actions/upload-artifact@v1
+        with:
+          name: test-results
+          path: test-results/test-report.html
   build:
     needs: install
     runs-on: ubuntu-latest

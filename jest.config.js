@@ -62,7 +62,10 @@ module.exports = {
       babelConfig: true,
     },
   },
-  setupFiles: ['./jest.setup.js', './node_modules/react-native-gesture-handler/jestSetup.js'],
+  setupFiles: [
+    // './jest.setup.js',
+    // './node_modules/react-native-gesture-handler/jestSetup.js',
+  ],
   transformIgnorePatterns: [
     // eslint-disable-next-line max-len
     'node_modules/(?!(jest-)?react-native|@?react-navigation|native-base|native-base-[a-z, -]*|victory-*|react-native-vector-icons)',

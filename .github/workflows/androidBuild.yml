@@ -59,7 +59,7 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
 
       - name: Test project
-        run: yarn test
+        run: yarn test --maxWorkers=2 --ci --coverage
 
   build:
     needs: install

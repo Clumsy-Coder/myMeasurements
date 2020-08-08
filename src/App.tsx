@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar } from 'react-native';
+import { SafeAreaView, StyleSheet, ScrollView, View, Text } from 'react-native';
 
 import {
   Header,
@@ -20,7 +20,7 @@ import {
 const App = () => {
   return (
     <>
-      <StatusBar barStyle='dark-content' />
+      {/* <StatusBar barStyle='dark-content' /> */}
       <SafeAreaView>
         <ScrollView contentInsetAdjustmentBehavior='automatic' style={styles.scrollView}>
           <Header />

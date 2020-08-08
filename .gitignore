@@ -64,3 +64,4 @@ android/.bundle
 android/vendor
 .env
 coverage/
+test-results/

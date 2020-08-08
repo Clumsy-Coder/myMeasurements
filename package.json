@@ -75,6 +75,9 @@
   "config": {
     "commitizen": {
       "path": "cz-emoji"
+    },
+    "cz-emoji": {
+      "symbol": true
     }
   }
 }

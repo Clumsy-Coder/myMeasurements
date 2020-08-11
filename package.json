@@ -79,7 +79,8 @@
       "path": "cz-emoji"
     },
     "cz-emoji": {
-      "symbol": true
+      "symbol": true,
+      "subjectMaxLength": 100
     }
   }
 }
